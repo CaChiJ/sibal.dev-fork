@@ -68,6 +68,7 @@ export const UserInput = () => {
         onChange={(e) => setComment(e.target.value)}
         placeholder="내용~~~"
         maxLength={5000}
+        className="!h-36"
       />
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-4">
