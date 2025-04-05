@@ -19,11 +19,9 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { deleteComment } from "@/libs/supabase/fetchComment";
-import { useNewCommentStore } from "@/libs/zustand/store";
 
 import { X } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 
 export const Comments = ({
   comments
@@ -40,28 +38,13 @@ export const Comments = ({
   const [openModal, setOpenModal] = useState(false);
   const [password, setPassword] = useState("");
   const [commentId, setCommentId] = useState(0);
-  const { comments: newComments } = useNewCommentStore();
 
-  const router = useRouter();
+  const sortedComments = comments.sort((a, b) => {
+    if (a.created_at > b.created_at) return -1;
+    if (a.created_at < b.created_at) return 1;
 
-  const sortedComments = useMemo(() => {
-    const optimisticComments = newComments.map((comment) => ({
-      ...comment,
-      id: 9999999 + Math.floor(Math.random() * 1000),
-      password: "****"
-    }));
-
-    const combined = [...optimisticComments, ...comments];
-
-    return combined.sort((a, b) => {
-      if (a.created_at > b.created_at) return -1;
-      if (a.created_at < b.created_at) return 1;
-
-      return 0;
-    });
-
-    // eslint-disable-next-line
-  }, [newComments]);
+    return 0;
+  });
 
   const handleDeleteComment = async () => {
     const result = await deleteComment(commentId, password);
