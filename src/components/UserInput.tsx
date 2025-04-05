@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { addComment } from "@/libs/supabase/addComment";
 
 import { type FormEvent, useState } from "react";
 
@@ -25,6 +26,8 @@ export const UserInput = () => {
 
       return;
     }
+
+    addComment(comment, nickname, password);
   };
 
   return (
@@ -35,17 +38,20 @@ export const UserInput = () => {
       <Textarea
         onChange={(e) => setComment(e.target.value)}
         placeholder="내용 입력~~~"
+        maxLength={5000}
       />
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-4">
           <Input
             onChange={(e) => setNickname(e.target.value)}
             placeholder="닉내임"
+            maxLength={12}
           />
           <Input
             type="password"
             onChange={(e) => setPassword(e.target.value)}
             placeholder="비번"
+            maxLength={16}
           />
         </div>
         <Button>입력</Button>
