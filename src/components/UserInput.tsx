@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { addComment } from "@/libs/supabase/fetchComment";
+import { useNewCommentStore } from "@/libs/zustand/store";
 
 import { type FormEvent, useState } from "react";
 
@@ -12,6 +13,8 @@ export const UserInput = () => {
   const [comment, setComment] = useState("");
   const [nickname, setNickname] = useState("익명");
   const [password, setPassword] = useState("");
+
+  const { addComment: addNewComment } = useNewCommentStore();
 
   const handleFormOnSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -35,6 +38,7 @@ export const UserInput = () => {
     }
 
     await addComment(title, comment, nickname, password);
+    addNewComment(title, comment, nickname, new Date().toLocaleString());
 
     setTitle("");
     setComment("");
