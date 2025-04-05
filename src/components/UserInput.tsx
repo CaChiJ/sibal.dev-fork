@@ -54,7 +54,7 @@ export const UserInput = () => {
       <Textarea
         value={comment}
         onChange={(e) => setComment(e.target.value)}
-        placeholder="내용~~~"
+        placeholder="내용~~~ 문의사항은 africakokiri@gmail.com"
         maxLength={5000}
         className="!min-h-36"
       />
