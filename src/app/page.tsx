@@ -3,9 +3,11 @@ import { UserInput } from "@/components/UserInput";
 
 export default function page() {
   return (
-    <div className="flex h-screen w-screen justify-center py-8">
+    <div
+      className="flex h-screen w-screen flex-col items-center gap-16 py-8"
+    >
       <UserInput />
-      {/* <Comments /> */}
+      <Comments />
     </div>
   );
 }

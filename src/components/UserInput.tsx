@@ -8,12 +8,19 @@ import { addComment } from "@/libs/supabase/fetchComment";
 import { type FormEvent, useState } from "react";
 
 export const UserInput = () => {
+  const [title, setTitle] = useState("");
   const [comment, setComment] = useState("");
   const [nickname, setNickname] = useState("익명");
   const [password, setPassword] = useState("");
 
   const handleFormOnSubmit = (e: FormEvent) => {
     e.preventDefault();
+
+    if (title.length < 2) {
+      alert("제목 두글자 이상 입력 ㄱㄱㄱㄱ");
+
+      return;
+    }
 
     if (comment.length < 2) {
       alert("내용 두글자 이상 입력 ㄱ");
@@ -36,7 +43,8 @@ export const UserInput = () => {
       className="w-1/2 space-y-4"
     >
       <Input
-        placeholder="제목~~~~~~"
+        onChange={(e) => setTitle(e.target.value)}
+        placeholder="재목~~~~~~"
         className="!h-10 !text-xl font-bold placeholder:text-xl"
       />
       <Textarea

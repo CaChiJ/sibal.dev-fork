@@ -22,7 +22,7 @@ export const Comments = async () => {
   ];
 
   return (
-    <main className="absolute left-[25%] top-48 w-1/2">
+    <main className="w-1/2">
       {comments.map(({ id, comment, nickname, created_at }) => {
         return (
           <Card key={id}>
