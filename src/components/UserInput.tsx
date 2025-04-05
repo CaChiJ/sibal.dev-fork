@@ -16,8 +16,11 @@ export const UserInput = () => {
   const handleFormOnSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    if (title.length < 2) {
-      alert("제목 두글자 이상 입력 ㄱㄱㄱㄱ");
+    const trimmedTitle = title.trim();
+    const trimmedPassword = password.trim();
+
+    if (title.length < 2 || trimmedTitle.length < 2) {
+      alert("제목 두글자 이상 입력 ㄱㄱㄱㄱ (공백 제외)");
 
       return;
     }
@@ -28,8 +31,15 @@ export const UserInput = () => {
       return;
     }
 
-    if (password.length < 4) {
-      alert("비번 네자리 이상 입력하삼~");
+    if (password.length < 4 || trimmedPassword.length < 4) {
+      alert("비번 네자리 이상 입력하삼~ (공백 제외)");
+
+      return;
+    }
+
+    const passwordRegex = /^[A-Za-z0-9]+$/;
+    if (!passwordRegex.test(password)) {
+      alert("비번은 영어랑 숫자만 입력 ㄱㄱ");
 
       return;
     }
