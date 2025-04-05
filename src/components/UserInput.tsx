@@ -11,7 +11,7 @@ import { type FormEvent, useState } from "react";
 export const UserInput = () => {
   const [title, setTitle] = useState("");
   const [comment, setComment] = useState("");
-  const [nickname, setNickname] = useState("익명");
+  const [nickname, setNickname] = useState("");
   const [password, setPassword] = useState("");
 
   const { addComment: addNewComment } = useNewCommentStore();
@@ -38,7 +38,12 @@ export const UserInput = () => {
     }
 
     await addComment(title, comment, nickname, password);
-    addNewComment(title, comment, nickname, new Date().toLocaleString());
+    addNewComment(
+      title,
+      comment,
+      nickname === "" ? "익명" : nickname,
+      new Date().toISOString()
+    );
 
     setTitle("");
     setComment("");
