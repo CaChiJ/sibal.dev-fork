@@ -21,3 +21,13 @@ export const addComment = async (
 
   return data;
 };
+
+export const getComments = async () => {
+  const supabase = await createClient();
+
+  const { data, error } = await supabase.from("comments").select("*");
+
+  if (error) throw error;
+
+  return data;
+};

@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { addComment } from "@/libs/supabase/addComment";
+import { addComment } from "@/libs/supabase/fetchComment";
 
 import { type FormEvent, useState } from "react";
 
@@ -35,9 +35,13 @@ export const UserInput = () => {
       onSubmit={handleFormOnSubmit}
       className="absolute left-[25%] top-8 w-1/2 space-y-4"
     >
+      <Input
+        placeholder="제목~~~~~~"
+        className="!h-10 !text-xl font-bold placeholder:text-xl"
+      />
       <Textarea
         onChange={(e) => setComment(e.target.value)}
-        placeholder="내용 입력~~~"
+        placeholder="내용~~~"
         maxLength={5000}
       />
       <div className="flex items-center justify-between">
