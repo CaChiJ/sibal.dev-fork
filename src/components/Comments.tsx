@@ -1,7 +1,6 @@
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle
@@ -9,31 +8,37 @@ import {
 import { getComments } from "@/libs/supabase/fetchComment";
 
 export const Comments = async () => {
-  // const comments = await getComments();
+  const comments = await getComments();
 
-  const comments = [
-    {
-      id: 6,
-      comment: "ㄷㄱㄷㄱㅅㄱ",
-      password: "234234",
-      created_at: "2025-04-05T02:45:55.266134+00:00",
-      nickname: "ㄷㄱㄷㄱ"
-    }
-  ];
+  const sortedComments = comments.sort((a, b) => {
+    if (a.created_at > b.created_at) return -1;
+    if (a.created_at < b.created_at) return 1;
+
+    return 0;
+  });
 
   return (
-    <main className="w-1/2">
-      {comments.map(({ id, comment, nickname, created_at }) => {
-        return (
-          <Card key={id}>
-            <CardContent>{comment}</CardContent>
-            <CardFooter className="flex justify-between">
-              <p>{nickname}</p>
-              <p>{new Date(created_at).toLocaleString()}</p>
-            </CardFooter>
-          </Card>
-        );
-      })}
+    <main className="w-1/2 space-y-8 pb-8">
+      {sortedComments.map(
+        ({ id, title, comment, nickname, created_at }) => {
+          return (
+            <Card key={id}>
+              <CardHeader>
+                <CardTitle className="text-2xl font-bold">
+                  {title}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p>{comment}</p>
+              </CardContent>
+              <CardFooter className="flex justify-between text-sm">
+                <p>{nickname}</p>
+                <p>{new Date(created_at).toLocaleString()}</p>
+              </CardFooter>
+            </Card>
+          );
+        }
+      )}
     </main>
   );
 };
