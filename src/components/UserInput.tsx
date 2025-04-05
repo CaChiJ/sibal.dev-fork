@@ -48,12 +48,14 @@ export const UserInput = () => {
       className="w-1/2 space-y-4"
     >
       <Input
+        value={title}
         onChange={(e) => setTitle(e.target.value)}
         placeholder="재목~~~~~~"
         className="!h-10 !text-xl font-bold placeholder:text-xl"
         maxLength={100}
       />
       <Textarea
+        value={comment}
         onChange={(e) => setComment(e.target.value)}
         placeholder="내용~~~"
         maxLength={5000}
@@ -61,12 +63,14 @@ export const UserInput = () => {
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-4">
           <Input
+            value={nickname}
             onChange={(e) => setNickname(e.target.value)}
             placeholder="닉내임"
             maxLength={12}
           />
           <Input
             type="password"
+            value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="비번"
             maxLength={16}
