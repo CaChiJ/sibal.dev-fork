@@ -50,12 +50,12 @@ export const Comments = ({
     const result = await deleteComment(commentId, password);
 
     if (result.length === 0) {
-      alert("비번 틀린듯? ㅋ");
+      alert("비번 틀린듯? ㅋㅋ");
 
       return;
     }
 
-    alert("삭쩨됨~~~~");
+    alert("삭제되었다");
 
     location.reload();
   };

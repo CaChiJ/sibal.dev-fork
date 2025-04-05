@@ -47,7 +47,7 @@ export const UserInput = () => {
       <Input
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        placeholder="재목~~~~~~"
+        placeholder="재목~~~"
         className="!h-10 !text-xl font-bold placeholder:text-xl"
         maxLength={100}
       />
@@ -56,9 +56,9 @@ export const UserInput = () => {
         onChange={(e) => setComment(e.target.value)}
         placeholder="내용~~~"
         maxLength={5000}
-        className="!h-36"
+        className="!min-h-36"
       />
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between gap-8">
         <div className="flex items-center space-x-4">
           <Input
             value={nickname}
@@ -72,6 +72,7 @@ export const UserInput = () => {
             onChange={(e) => setPassword(e.target.value)}
             placeholder="비번"
             maxLength={16}
+            autoComplete="off"
           />
         </div>
         <Button>입력</Button>
