@@ -4,7 +4,11 @@ import "@/styles/globals.css";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: ""
+  title: "Sibal",
+  description: "아무 말이나 하는 곳",
+  icons: {
+    icon: "/icons/lion.svg"
+  }
 };
 
 export default function RootLayout({
