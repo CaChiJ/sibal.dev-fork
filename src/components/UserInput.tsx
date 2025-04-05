@@ -13,7 +13,7 @@ export const UserInput = () => {
   const [nickname, setNickname] = useState("익명");
   const [password, setPassword] = useState("");
 
-  const handleFormOnSubmit = (e: FormEvent) => {
+  const handleFormOnSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     if (title.length < 2) {
@@ -34,7 +34,12 @@ export const UserInput = () => {
       return;
     }
 
-    addComment(comment, nickname, password);
+    await addComment(title, comment, nickname, password);
+
+    setTitle("");
+    setComment("");
+    setNickname("");
+    setPassword("");
   };
 
   return (
@@ -46,6 +51,7 @@ export const UserInput = () => {
         onChange={(e) => setTitle(e.target.value)}
         placeholder="재목~~~~~~"
         className="!h-10 !text-xl font-bold placeholder:text-xl"
+        maxLength={100}
       />
       <Textarea
         onChange={(e) => setComment(e.target.value)}
