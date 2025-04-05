@@ -33,7 +33,7 @@ export const UserInput = () => {
   return (
     <form
       onSubmit={handleFormOnSubmit}
-      className="absolute left-[25%] top-8 w-1/2 space-y-4"
+      className="w-1/2 space-y-4"
     >
       <Input
         placeholder="제목~~~~~~"
