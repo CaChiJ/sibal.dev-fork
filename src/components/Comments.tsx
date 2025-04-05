@@ -1,15 +1,29 @@
 "use client";
 
 import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle
+} from "@/components/ui/alert-dialog";
+import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle
 } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { deleteComment } from "@/libs/supabase/fetchComment";
 import { useNewCommentStore } from "@/libs/zustand/store";
 
-import { useMemo } from "react";
+import { X } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useMemo, useState } from "react";
 
 export const Comments = ({
   comments
@@ -23,7 +37,12 @@ export const Comments = ({
     created_at: string;
   }[];
 }) => {
+  const [openModal, setOpenModal] = useState(false);
+  const [password, setPassword] = useState("");
+  const [commentId, setCommentId] = useState(0);
   const { comments: newComments } = useNewCommentStore();
+
+  const router = useRouter();
 
   const sortedComments = useMemo(() => {
     const optimisticComments = newComments.map((comment) => ({
@@ -44,6 +63,20 @@ export const Comments = ({
     // eslint-disable-next-line
   }, [newComments]);
 
+  const handleDeleteComment = async () => {
+    const result = await deleteComment(commentId, password);
+
+    if (result.length === 0) {
+      alert("비번 틀린듯? ㅋ");
+
+      return;
+    }
+
+    alert("삭쩨됨~~~~");
+
+    location.reload();
+  };
+
   return (
     <main className="w-1/2 space-y-8 pb-8">
       {sortedComments.map(
@@ -60,12 +93,48 @@ export const Comments = ({
               </CardContent>
               <CardFooter className="flex justify-between text-sm">
                 <p>{nickname}</p>
-                <p>{new Date(created_at).toLocaleString()}</p>
+                <div className="flex items-center gap-4">
+                  <p>{new Date(created_at).toLocaleString()}</p>
+                  <button
+                    onClick={() => {
+                      setOpenModal(true);
+                      setCommentId(id);
+                    }}
+                  >
+                    <X className="h-4 w-4 text-red-500" />
+                  </button>
+                </div>
               </CardFooter>
             </Card>
           );
         }
       )}
+      <AlertDialog
+        open={openModal}
+        onOpenChange={setOpenModal}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>댓삭?</AlertDialogTitle>
+            <AlertDialogDescription>
+              <label htmlFor="password">비번 입력하삼</label>
+            </AlertDialogDescription>
+            <Input
+              id="password"
+              name="password"
+              type="password"
+              maxLength={16}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>닫기</AlertDialogCancel>
+            <AlertDialogAction onClick={handleDeleteComment}>
+              삭제하기
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </main>
   );
 };

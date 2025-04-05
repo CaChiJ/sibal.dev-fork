@@ -33,3 +33,18 @@ export const getComments = async () => {
 
   return data;
 };
+
+export const deleteComment = async (id: number, password: string) => {
+  const supabase = await createClient();
+
+  const { data, error } = await supabase
+    .from("comments")
+    .delete()
+    // .eq("password", password);
+    .match({ id, password })
+    .select();
+
+  if (error) throw error;
+
+  return data;
+};
